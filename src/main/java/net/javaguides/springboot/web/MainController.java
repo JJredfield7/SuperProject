@@ -2,9 +2,12 @@ package net.javaguides.springboot.web;
 
 import net.javaguides.springboot.repository.ItemRepository;
 import net.javaguides.springboot.repository.RestaurantInfoRepository;
+import net.javaguides.springboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -37,6 +40,16 @@ public class MainController {
 	public ModelAndView getAllRestaurants() {
 		ModelAndView mav = new ModelAndView("contactUs");
 		mav.addObject("restaurants", restoRepository.findAll());
+		return mav;
+	}
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@GetMapping({"/userDashboard"})
+	public ModelAndView displayUserDash() {
+		ModelAndView mav = new ModelAndView("userDashboard");
+		mav.addObject("userDash", userRepository.findAll());
 		return mav;
 	}
 }
